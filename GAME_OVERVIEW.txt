@@ -1,0 +1,432 @@
+================================================================================
+FRENTE ALIADA — GAME CONCEPT & KEY CHARACTERISTICS
+"A Segunda Guerra em duas frentes" / "The war on two fronts"
+================================================================================
+
+--------------------------------------------------------------------------------
+1. CONCEPT (ONE PARAGRAPH)
+--------------------------------------------------------------------------------
+Frente Aliada is a short, browser-based, educational real-time strategy game set
+in World War II. The player takes command of Allied forces in a stylized trench
+warfare battle, buying squads with coins, placing reinforcements, and ordering
+them to advance, retreat, or hold a line. Each of the 10 missions recreates a
+real historical battle in chronological order, framed by a historical briefing,
+and completing it unlocks a "Diary of War" fact sheet. The goal is not to
+simulate war realistically, but to make the player understand WHY each battle
+mattered while playing a compact, readable trench-defense/assault game.
+
+Elevator pitch:
+  "A 2–4 minute playable history lesson: hold or break a line of trenches in a
+   real WWII battle, then unlock the story behind it."
+
+--------------------------------------------------------------------------------
+2. WHAT THE GAME IS
+--------------------------------------------------------------------------------
+- Genre:        Real-time tactics / trench defense & assault (light RTS)
+- Platform:     Web browser, desktop and mobile (single HTML page, no install)
+- Tech:         Vanilla JavaScript + HTML5 Canvas 2D, no libraries, no build step
+- Session:      ~2–4 minutes per battle, ~30–40 minutes for the full campaign
+- Tone:         Educational, respectful, non-graphic; pixel-art presentation
+- Language:     Brazilian Portuguese (UI, history, and all content)
+- Save:         Local only (localStorage), no accounts, no server
+- Content:      10 historical battles, 5 per front, 1939–1945 framing
+
+Core fantasy:
+  You are an Allied field commander. You do not control individual soldiers;
+  you control the LINE. You decide where reinforcements arrive, when a trench
+  attacks, when it falls back, and whether troops stop at a friendly line or
+  pass through it.
+
+--------------------------------------------------------------------------------
+3. DESIGN PILLARS
+--------------------------------------------------------------------------------
+1. HISTORY FIRST — Every mission is a real battle, presented in real
+   chronological order, with context, stakes, commanders, outcome and a
+   "Did you know?" fact. Gameplay simplifies combat so the history stays legible.
+2. READABLE TRENCH COMBAT — Seven vertical trench lines, two sides, clear
+   ownership colors. No fog of war, no micromanagement of individual units.
+3. SHORT SESSIONS, REAL DECISIONS — 2–4 minute battles built around three
+   choices: where to deploy, when to push, and when to fall back.
+4. EARNED PROGRESSION — Victories unlock the next battle and a full historical
+   diary entry. Medals (Bronze/Silver/Gold) reward efficient command.
+5. TWO FRONTS — The campaign alternates between the Western and Eastern
+   fronts, showing that Germany was squeezed from both sides.
+
+--------------------------------------------------------------------------------
+4. GAME FLOW
+--------------------------------------------------------------------------------
+CAMPAIGN SCREEN
+  - Hero panel with the next mission ("dossier").
+  - Timeline of all 10 battles, grouped by year, filterable by front.
+  - Locked battles must be completed in order.
+  - Progress chip (x/10), front counters, sound toggle.
+  - Each battle card shows a historical photo and the flag of the country where
+    the battle took place (images from the Images/ folder). The Germany flag
+    stays blurred until the pointer enters its own small flag box; hovering the
+    rest of the card does not reveal it.
+
+BRIEFING MODAL (before every battle)
+  - Header photo of the battle (Images/ folder), with the year and front tag.
+  - Date, place, front, outcome, Allies, Axis, commanders.
+  - "O contexto histórico" — what happened.
+  - "O que estava em jogo" — why it mattered.
+  - "Seu papel na missão" — the player's fictional role.
+  - Objective, difficulty selector, "Did you know?" historical fact.
+  - Button: "Iniciar batalha" / "Jogar novamente".
+
+IN-BATTLE
+  1. Intro overlay: mission, objective, faction, controls, hint.
+  2. Buy units with coins; choose the reinforcement line.
+  3. Use per-trench order buttons: ADVANCE, RETREAT, BLOCK/PASS.
+  4. Capture trenches one by one until you reach and take the last enemy line.
+  5. Pause at any time (Esc/P); auto-pauses when the tab is hidden.
+
+RESULT
+  - Victory/defeat report: kills, losses, trenches captured, score.
+  - Rank: Bronze, Silver or Gold (best rank saved).
+  - "What this battle taught" — 3 historical takeaways.
+  - Historical fun fact.
+  - Actions: next battle, retry, back to campaign.
+
+META
+  - Diary of War: one fact sheet per completed battle (context + fun fact),
+    illustrated with the battle photo.
+  - Progress ring and completion percentage.
+  - Difficulty can be changed at any time; it applies to the next battle.
+  - "Erase progress" resets everything.
+
+--------------------------------------------------------------------------------
+5. CAMPAIGN — THE 10 BATTLES (chronological)
+--------------------------------------------------------------------------------
+ #   BATTLE                         DATE                         FRONT   START COINS
+ 1   Batalha de Narvik               9 Apr – 8 Jun 1940          West    270
+ 2   Operação Compass               9 Dec 1940 – 9 Feb 1941      West    275
+ 3   Batalha de Moscou              30 Sep 1941 – 7 Jan 1942      East    290
+ 4   Batalha de Stalingrado         23 Aug 1942 – 2 Feb 1943      East    310
+ 5   Segunda Batalha de El Alamein  23 Oct – 11 Nov 1942         West    300
+ 6   Batalha de Kursk               5 Jul – 23 Aug 1943          East    330
+ 7   Dia D — Operação Overlord      6 Jun 1944                   West    360
+ 8   Operação Bagration             22 Jun – 19 Aug 1944         East    360
+ 9   Batalha das Ardenas            16 Dec 1944 – 25 Jan 1945      West    350
+10   Batalha de Berlim              16 Apr – 2 May 1945           East    400
+
+Front split: 5 Western / 5 Eastern.
+Win condition: every battle is won by reaching and capturing the last enemy line.
+D-Day is a special "beach landing" variant (see section 6).
+Enemy factions: Germany in 9 battles, Italy in Operation Compass.
+Player faction: Western Allies on the Western front, Red Army on the Eastern front.
+
+Historical arc the campaign teaches:
+  Arctic land victory (Narvik) -> desert war (Compass, El Alamein) ->
+  the turning points (Moscow, Stalingrad, Kursk) -> the two-front collapse
+  (D-Day, Bagration, the Bulge) -> the end in Berlin.
+
+--------------------------------------------------------------------------------
+6. BATTLEFIELD & CORE RULES
+--------------------------------------------------------------------------------
+LAYOUT (7 vertical trench lines, left = Allied rear, right = enemy rear):
+
+  PLAYER SIDE                                   ENEMY SIDE
+  [1]----[2]----[3]----[4]----[5]----[6]----[7]
+   own    own   neutral neutral  enemy  enemy  enemy
+
+  - Line 1 and 2 start under player control.
+  - Lines 3 and 4 start neutral.
+  - Lines 5, 6 and 7 start under enemy control.
+  - Reinforcements spawn outside the screen and walk to the selected friendly
+    line (or the most advanced friendly line if none is selected).
+
+CAPTURE RULES
+  - A trench changes owner when it contains units of only one side.
+  - A friendly line with no defenders and enemy units present is lost.
+  - A neutral line is taken by whoever occupies it alone.
+  - First capture of a trench gives +20 coins (one-time bonus).
+  - Taking the enemy's last line (7) wins immediately.
+  - Losing your first line (1) loses immediately.
+
+WIN / LOSE
+  - Every battle: win by reaching and capturing the last enemy line (line 7).
+  - Lose only if your first line (line 1) falls.
+  - There is no time limit.
+
+D-DAY VARIANT (battle 7 only — battle.variant = "dday")
+  - The battlefield begins at sea: the left edge is the English Channel, with
+    animated waves, foam and a wet-sand shoreline.
+  - Starting troops arrive in landing boats, in groups of up to 4. Boats cross
+    the water, beach themselves and disembark. Purchased infantry is also
+    assembled into boats of 4 (mixed types allowed) that only depart when full;
+    purchased tanks travel alone in much slower boats.
+  - There is one visible loading boat per group, with a 2x2 square showing how
+    many of the 4 slots are already filled.
+  - There is only ONE trench, the final enemy line at 0.90W, defended by four
+    machine gunners in concrete bunkers. The other six positions are beach cover
+    (hedgehogs, rocks, sandbags and craters), not trenches.
+  - Line labels: Praia, Ouriços, Rochas, Muro, Cratera, Aproximação, Trincheira.
+  - Bunker MGs take 30% damage (damage x0.7), fire twice as fast and reach only
+    the second position; the beach landing line is outside their field of fire.
+  - Starting force: 16 soldiers — 7 riflemen, 5 SMG, 2 MG, 1 medic and 1
+    anti-tank — filling four landing boats.
+  - Every 10 seconds two SMG assault troops counterattack from the final trench.
+  - Assault troops fire on the move at a 1.55x cooldown and keep a minimum
+    advance speed of 0.6 so the landing force does not arrive piecemeal.
+  - Win by destroying all four bunkers and taking the final trench; lose if the
+    beach staging position falls.
+  - D-Day fractions: [0.205, 0.315, 0.425, 0.535, 0.645, 0.775, 0.90];
+    shoreline at 0.16W.
+
+ORDERS (per friendly trench)
+  - ADVANCE (>) — all stationed units move to the next valid line. Friendly
+    lines set to PASSAR are skipped; blocked friendly lines stop the advance.
+  - RETREAT (<) — all stationed units fall back to the nearest friendly line.
+  - BLOQ / PASSAR — toggles whether moving troops stop at this friendly line
+    (blocked) or pass through it (open).
+  - Units in transit cannot fight while walking, but stop automatically a few
+    metres short of an enemy charging head-on and then open fire. D-Day assault
+    troops are the exception: they fire on the move at a reduced cadence.
+  - Combat is automatic: units prioritize enemies straight ahead in their firing
+    lane, then the nearest target in range. Assault/SMG troops also throw a
+    grenade at their target every 5 seconds while shooting.
+
+ECONOMY
+  - Income: +100 coins every 5 seconds (discrete ticks).
+  - Capture bonus: +20 coins per trench, first time only.
+  - Start coins: 260–400 depending on the battle.
+  - Unit cap: 28 player units; 28 enemy units.
+  - No upkeep, no selling, no refunds.
+
+DIFFICULTY
+  Recruta  (I)   enemy HP x0.80, enemy damage x0.65, attack interval x1.18,
+                 starting coins x1.15 — for learning the history.
+  Soldado  (II)  all multipliers x1.00 — the default campaign experience.
+  Veterano (III) enemy HP x1.28, enemy damage x1.40, attack interval x0.85,
+                 starting coins x0.90 — for players who know the front.
+
+ENEMY BEHAVIOUR
+  - Both sides start with comparable numbers; the enemy is topped up to the
+    player's starting strength when a mission begins.
+  - The enemy buys a matching unit whenever the player buys one.
+  - Each enemy loss queues a replacement; replacements arrive after a 12 s
+    cooldown, one at a time.
+  - Enemy reinforcements walk in from outside the screen instead of
+    teleporting directly into a trench.
+  - Aggression timer (13–20 s base) orders attacks; attacks become more
+    frequent as the player captures lines and can open a second axis after ~30%.
+  - Tank chance scales with battle progress; at most 3 enemy tanks alive.
+  - The enemy keeps one unit behind when attacking with 3+ units.
+  - D-Day exception: the enemy never advances, never buys tanks and never
+    counter-purchases. Its spawn table is weighted toward MGs, snipers and
+    mortars, and its troops hold the final line and bunkers.
+
+--------------------------------------------------------------------------------
+7. UNITS
+--------------------------------------------------------------------------------
+Eight purchasable types, reskinned per faction (same stats, different names):
+
+  KEY  UNIT          COST  HP   DAMAGE  RANGE  COOLDOWN  SPEED  ROLE
+  1    Rifleman       35   74     12     1.00    1.30s    0.70   Front line
+  2    Assault/SMG    50   64      7     1.00    0.55s    0.85   Close combat
+  3    Machine gun    80   92     10     1.00    0.30s    0.46   Suppression
+  4    Sniper         95   56     36     1.00    2.40s    0.52   Long range
+  5    Anti-tank     110   78     42     1.00    2.60s    0.42   Tank killer
+  6    Mortar        130   68     26     1.00    3.40s    0.34   Area damage
+  7    Medic          70   60      0     1.00    1.10s    0.80   Heals allies
+  8    Tank          220  330     34     1.00    1.65s    0.28   Shock/armor
+
+  - Every unit fires up to one "trench gap" (the distance between two
+    neighbouring positions), not an arbitrary per-type distance.
+  - Anti-tank deals x2.6 damage to tanks; non-AT units deal only x0.45
+    damage to tanks (armor).
+  - Mortars deal 55% splash damage in a radius around the target.
+  - Tanks deal area damage around the impact point (70% base splash, with
+    falloff by distance).
+  - Medics heal 9 HP to the most wounded ally in range instead of firing.
+  - Tank kills cause explosions, screen shake and scorch marks.
+  - Unit names by faction:
+      Western Allies: Lee-Enfield, Sten, Bren, Enfield, PIAT, 3-inch mortar,
+                      field medic, Sherman.
+      Red Army:       Mosin-Nagant, PPSh-41, Maxim, Mosin, PTRD-41, 82 mm
+                      mortar, field nurse, T-34.
+      Wehrmacht:      Kar98k, MP40, MG42, Kar98k, Panzerfaust, Granatwerfer,
+                      Sanitäter, Panzer IV.
+      Italy:          Carcano M91, Beretta M38, Breda M37, Carcano,
+                      Cannone 47/32, Brixia mortar, nurse, M13/40.
+
+--------------------------------------------------------------------------------
+8. SCORING & RANKS
+--------------------------------------------------------------------------------
+Score = kills x35 + captures x70 + 40% of remaining coins
+        + 600 if victorious - losses x12.
+
+Rank points:
+  +2  victory
+  +1  low casualties (<= 8 on Soldado, <= 10 on Recruta, <= 5 on Veterano)
+  +1  captured at least 3 trenches
+  +1  at least 15 enemy kills
+  +1  controlled at least 3 lines at the end
+
+  Gold >= 5 points, Silver >= 3, otherwise Bronze.
+  The best rank and score per battle are saved.
+
+--------------------------------------------------------------------------------
+9. CONTROLS
+--------------------------------------------------------------------------------
+MOUSE / TOUCH
+  - Click/tap a friendly trench to select it as the reinforcement line.
+  - Click/tap the > and < buttons at the base of a trench to advance/retreat.
+  - Click/tap BLOQ / PASSAR to block or open a friendly line.
+  - Shop buttons at the bottom buy units (desktop or mobile).
+  - Pause button in the top-right corner.
+
+KEYBOARD
+  1–8        Buy unit types in shop order
+  A or Q     Advance the selected/ready line
+  R or E     Retreat the selected/ready line
+  B          Toggle block/pass on the selected/ready line
+  Esc or P   Pause / resume
+  Enter/Space Open a focused battle card on the campaign screen
+
+--------------------------------------------------------------------------------
+10. PRESENTATION
+--------------------------------------------------------------------------------
+VISUALS
+  - Entire battlefield is drawn procedurally on an HTML5 canvas in a pixel-art
+    style: blocky sun, drifting clouds, distant silhouettes, craters, scorch
+    marks, sandbags, barbed wire, debris, grass/snow patches.
+  - Per-battle palette (sky, sun, ground, haze, accent) creates a distinct mood.
+  - Biomes: field, forest, snow, desert/sand, coast/beach, urban/ruins.
+  - Weather: clear, rain, snow, ash, overcast (light drizzle, grey sky, no sun).
+  - D-Day visuals: dark sea with animated waves and foam, wet-sand shoreline,
+    landing boats with troops aboard, concrete bunkers with MG slits, anti-tank
+    hedgehogs, wrecked boats, a low grey overcast sky and a cold gloom overlay.
+  - The D-Day campaign card gets an animated gold shine only while the mission
+    is unlocked/playable; locked cards stay muted. Its intro overlay carries a
+    highlighted callout explaining that the beach-landing gameplay differs from
+    the other battles.
+  - Units are hand-drawn pixel sprites in code: soldiers with rifles, SMGs,
+    machine guns, sniper scopes, anti-tank weapons, mortars, medics, tanks.
+  - Health bars, muzzle flashes, tracers, explosions, smoke, screen shake and
+    floating coin/damage text give feedback without graphic violence.
+  - Layout is responsive: canvas resizes to the window, troop slots reflow,
+    and the field re-lays out around the HUD and shop dock.
+
+GRAPHICS QUALITY
+  Three presets, selectable from the monitor button in the header (opens a
+  settings modal) and from quick chips on the pause screen. Changes apply
+  immediately, even mid-battle, and are saved in localStorage.
+    Alto  (default) — the full current visual standard: internal resolution up
+                      to 2x DPR, 100% scenery, weather and particles, shadows,
+                      explosion rings, screen flashes, detailed sandbags and
+                      multi-layer smoke. HUD refresh ~90 ms.
+    Médio          — up to 1.25x DPR, 72% scenery, 65% weather, 70% particles,
+                      80% effects, shadows kept, simpler effects. HUD ~110 ms.
+    Baixo          — 0.85x DPR, 42% scenery, 35% weather and particles, no
+                      shadows, no explosion rings or screen flashes, square
+                      particles, fewer smoke layers, sparse sandbags. HUD ~140 ms.
+  Lower presets cut internal canvas resolution, scenery density, particles,
+  tracers, weather flakes and per-frame HUD writes, which raises FPS on weaker
+  computers while keeping gameplay identical.
+
+AUDIO
+  - Recorded samples from the Sounds/ folder: Allied and enemy rifle shots,
+    machine guns, three explosion variations and three scream variations.
+    The correct side/front sample is chosen for each shot; tanks and mortars
+    use explosions.
+  - Each unit death has a 30% chance to play one of the three scream samples.
+  - Synth Web Audio effects remain for hits, reloads, UI clicks, purchase,
+    capture, victory and defeat jingles, and as a fallback while samples load
+    or when the game is opened directly from disk (file://).
+  - Global sound toggle, persisted in the save.
+
+ACCESSIBILITY / UX
+  - ARIA labels, modal focus trap, keyboard-operable cards and buttons.
+  - Clear color language: gold = player, red = enemy, gray = neutral.
+  - Pauses automatically when the browser tab becomes hidden.
+  - Progress is saved automatically after each victory.
+
+--------------------------------------------------------------------------------
+11. HISTORICAL / EDUCATIONAL FRAMING
+--------------------------------------------------------------------------------
+  - Each battle includes: context, stakes, commanders, outcome, the player's
+    role, objective, 3 takeaways, and a verified-style "Did you know?" fact.
+  - Dates, numbers and outcomes follow the broadly accepted historical record.
+  - The game explicitly states that it is an educational dramatization, that
+    casualty/force numbers vary between sources, and that it does not replace
+    a history book.
+  - No graphic violence; combat is abstract pixel action.
+  - Closing quote: "Those who cannot remember the past are condemned to repeat
+    it." — George Santayana.
+
+--------------------------------------------------------------------------------
+12. TECHNICAL ARCHITECTURE
+--------------------------------------------------------------------------------
+ACTIVE FILES (loaded by index.html)
+  index.html     Markup, SVG icon sprite, campaign/diary/about screens,
+                 in-game HUD, shop dock, overlays, modals.
+  styles.css     Full visual identity: military/pixel theme, typography,
+                 responsive layout, animations, modals, game screen.
+  battles.js     window.BATTLES — the 10 historical battle definitions:
+                 dates, front, place, factions, commanders, outcome, palette,
+                 scene/weather, context, stakes, role, objective, fun fact,
+                 takeaways and mission tuning (coins, units, spawn table,
+                 aggression, tank chance, hint).
+  game.js        The whole engine (~3,000 lines): save system, campaign and
+                 diary UI, briefings, difficulty, recorded + synthesized audio,
+                 trench RTS simulation, enemy AI, economy, scoring/ranks, canvas
+                 rendering, weather, input handling, pause/end flow.
+
+UNUSED / LEFTOVER FILES (not referenced by index.html)
+  data.js, core.js, main.js, ui.js, ui-panels.js — remnants of a different,
+  unrelated game called "Market Masters" (a business/investing simulator).
+  They have no effect on Frente Aliada and can be ignored or removed.
+
+KEY CONSTANTS (game.js)
+  TRENCH_FRACTIONS  [0.06, 0.205, 0.35, 0.495, 0.64, 0.785, 0.93]
+  DDAY_FRACTIONS    [0.205, 0.315, 0.425, 0.535, 0.645, 0.775, 0.90]
+  DDAY_SHORE        0.16W (shoreline)
+  DDAY_LINE_LABELS  Praia, Ouriços, Rochas, Muro, Cratera, Aproximação, Trincheira
+  CAPTURE_BONUS     20 coins
+  INCOME_TICK_COINS 100 coins
+  INCOME_TICK_SECONDS 5
+  PLAYER_UNIT_CAP   28
+  ENEMY_UNIT_CAP    28
+  GRENADE_COOLDOWN  5 seconds
+  GRENADE_FUSE      0.6 seconds
+  GRENADE_DAMAGE    18
+  GRENADE_RADIUS    0.55 trench gaps
+  SLOT_ROWS         6
+  Save key          "frente-aliada-save-v1"
+  Save shape        { completed, best, difficulty, sound }
+
+STATE MODEL
+  - save:      completed battles, best rank/score, difficulty, sound.
+  - G:         transient battle state (trenches, units, coins, timers,
+               particles, scenery, score, phase).
+  - Phases:    intro -> playing <-> paused -> ended.
+  - Persistence only on victory; defeats do not advance the campaign.
+
+--------------------------------------------------------------------------------
+13. WHAT MAKES IT DISTINCTIVE
+--------------------------------------------------------------------------------
+  - It is a genuine playable strategy game, not a quiz with a history theme:
+    the lesson is delivered through the mission briefing and debrief.
+  - The "line of trenches" abstraction removes RTS micromanagement and keeps
+    each decision legible in seconds — ideal for classroom or short breaks.
+  - Advancing through history IS the progression system: the next battle is
+    literally the next page of the war.
+  - Strong, cohesive art direction achieved with zero image assets: palettes,
+    procedural scenery and code-drawn pixel sprites.
+  - The Block/Pass mechanic creates real tactical texture: you can let troops
+    flow through a line, or use a line as a dam to mass forces.
+  - Honest educational framing: clear disclaimer, no glorification, and a
+    "what this battle taught" recap after every mission.
+
+--------------------------------------------------------------------------------
+14. QUICK SUMMARY
+--------------------------------------------------------------------------------
+Frente Aliada = 10 real WWII battles + 7 trench lines + 8 unit types +
+2 fronts + 3 difficulties + Bronze/Silver/Gold ranks + a historical diary,
+played in 2–4 minute bursts in the browser, with pixel-art canvas battles and
+synthesized sound. The D-Day mission adds a unique amphibious beach landing with
+boats, bunkers and a defensive enemy line. Simple to learn, historically
+grounded, and built to make the player ask "why did this battle matter?"
+================================================================================

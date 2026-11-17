@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0f0d" />
+  <meta name="description" content="Frente Aliada: um jogo educativo sobre a Segunda Guerra Mundial. Lute nas frentes Ocidental e Oriental, em batalhas na ordem histórica, e aprenda o contexto de cada uma." />
+  <title>Frente Aliada — A Segunda Guerra em duas frentes</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.6 2.8 6.1 6.7.7-5 4.5 1.4 6.5-5.9-3.3-5.9 3.3 1.4-6.5-5-4.5 6.7-.7L12 2.6Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.5 20 6v6c0 5-3.4 8.2-8 9.5C7.4 20.2 4 17 4 12V6l8-3.5Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.8v14.4L19 12 7 4.8Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 6.7"/><path d="M20 4v7h-7"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="10.5" rx="2"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 4.6 4.6L19.5 6.5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16.5a1.5 1.5 0 0 1-1.5 1.5H6.5A2.5 2.5 0 0 1 4 18.5v-13Z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20M8 7h8M8 11h5"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9.5v5h4l5 4v-13l-5 4H4Z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5v5h4l5 4v-13l-5 4H4Z"/><path d="m16 9 5 6M21 9l-5 6"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+    <symbol id="i-anchor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><path d="M12 7.2V21M8 10h8M4 14c0 4 3.6 7 8 7s8-3 8-7h-2.5M6.5 14H4Z"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24"><path d="M2.5 13.5 21 7.2l-3.2 5.2-6 1.6-3.1 5.7-1.2-4.7-3.5 1.4-1.5-2.9Z"/><path d="m11.5 14 4.5 4.4"/></symbol>
+    <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2v20M3.3 7l17.4 10M20.7 7 3.3 17M8.8 4.5 12 7l3.2-2.5M8.8 19.5 12 17l3.2 2.5M4.8 9.6 8.2 10l1.2 3.3M19.2 14.4 15.8 14l-1.2-3.3"/></symbol>
+    <symbol id="i-ruins" viewBox="0 0 24 24"><path d="M3 21V11h4V7h4v4h3V4h4v8h3v9H3Z"/><path d="M7 21v-4M12 21v-5M17 21v-6M3 21h18"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></symbol>
+    <symbol id="i-tank" viewBox="0 0 24 24"><rect x="3" y="13" width="18" height="6" rx="2"/><circle cx="7" cy="16" r="1.4"/><circle cx="12" cy="16" r="1.4"/><circle cx="17" cy="16" r="1.4"/><path d="M7 13V9h7l2 4M14 9h7M17 9V6"/></symbol>
+    <symbol id="i-ship" viewBox="0 0 24 24"><path d="M4 15h16l-2.5 6h-11L4 15Z"/><path d="M7 15V9h10v6M12 9V4M8 4h8"/><path d="M2 22c1.5-1.5 3-1.5 4.5 0s3 1.5 4.5 0 3-1.5 4.5 0 3 1.5 4.5 0"/></symbol>
+    <symbol id="i-tree" viewBox="0 0 24 24"><path d="m12 2 6 8h-3.5l5 7H4.5l5-7H6l6-8Z"/><path d="M12 17v5"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 3v18M5 4h14l-2.5 4L19 12H5"/></symbol>
+    <symbol id="i-medal" viewBox="0 0 24 24"><circle cx="12" cy="14" r="5"/><path d="m8 9-3-6M16 9l3-6M9.5 6h5M12 11.5l1 2.2 2.3.2-1.8 1.6.5 2.3-2-1.2-2 1.2.5-2.3-1.8-1.6 2.3-.2 1-2.2Z"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5C7 16.5 3 13.3 3 9.3 3 6.4 5.2 4 8 4c1.6 0 3.2.8 4 2.1C12.8 4.8 14.4 4 16 4c2.8 0 5 2.4 5 5.3 0 4-4 7.2-9 11.2Z"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8"/></symbol>
+    <symbol id="i-ammo" viewBox="0 0 24 24"><path d="M9 21V6.5a3 3 0 0 1 3-3 3 3 0 0 1 3 3V21H9Z"/><path d="M9 10h6M6 21h12"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 4 5.7 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.7-4-9s1.4-6.5 4-9Z"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.2v9.6M9.4 9.4h4a2 2 0 0 1 0 4h-3a2 2 0 0 0 0 4h4.2"/></symbol>
+    <symbol id="i-swords" viewBox="0 0 24 24"><path d="M4 3h4l12 12-2 2L4 5V3Z"/><path d="m3 16 5-5 2 2-5 5H3v-2Z"/><path d="M20 3h-4L4 15l2 2L20 5V3Z"/><path d="m21 16-5-5-2 2 5 5h2v-2Z"/></symbol>
+    <symbol id="i-retreat" viewBox="0 0 24 24"><path d="M20 12H6M11 6l-6 6 6 6"/><path d="M4 4v16"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.6 14.3c2.9.4 5 2.7 5 5.7"/></symbol>
+    <symbol id="i-trench" viewBox="0 0 24 24"><path d="M3 9h18v5H3z"/><path d="M3 14c2.2 3 4.8 3 7 0s4.8-3 7 0 4.8 3 4 0"/><path d="M6 9V6M12 9V5M18 9V6"/></symbol>
+  </svg>
+
+  <div class="page-grain" aria-hidden="true"></div>
+  <div class="page-glow page-glow--west" aria-hidden="true"></div>
+  <div class="page-glow page-glow--east" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#" data-action="home" aria-label="Frente Aliada — início">
+      <span class="brand-mark"><svg viewBox="0 0 36 40" aria-hidden="true"><path d="M18 1 34 7v12c0 10-6.6 17-16 20C8.6 36 2 29 2 19V7L18 1Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="m18 9 2.5 5.4 5.9.6-4.4 4 1.2 5.8-5.2-3-5.2 3 1.2-5.8-4.4-4 5.9-.6L18 9Z" fill="currentColor"/></svg></span>
+      <span class="brand-text"><strong>FRENTE ALIADA</strong><small>1939–1945 · A guerra em duas frentes</small></span>
+    </a>
+
+    <nav class="main-nav" aria-label="Navegação principal">
+      <button class="nav-item active" data-view="campaign" aria-selected="true"><svg class="icon"><use href="#i-grid"/></svg><span>Campanha</span></button>
+      <button class="nav-item" data-view="diary" aria-selected="false"><svg class="icon"><use href="#i-book"/></svg><span>Diário de Guerra</span></button>
+      <button class="nav-item" data-view="about" aria-selected="false"><svg class="icon"><use href="#i-info"/></svg><span>Como jogar</span></button>
+    </nav>
+
+    <div class="header-actions">
+      <div class="progress-chip" title="Batalhas concluídas na campanha">
+        <span class="progress-chip-dot"></span>
+        <strong id="header-progress">0/10</strong>
+        <span>batalhas</span>
+      </div>
+      <button class="icon-btn" id="graphics-toggle" aria-label="Gráficos: Alto. Abrir configurações gráficas" title="Gráficos: Alto">
+        <svg class="icon"><use href="#i-monitor"/></svg>
+      </button>
+      <button class="icon-btn" id="sound-toggle" aria-label="Ativar ou desativar som" title="Som">
+        <svg class="icon"><use href="#i-volume"/></svg>
+      </button>
+      <span class="credit">Feito por <strong>Nicolas Dellatorre</strong></span>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <!-- ============================ CAMPANHA ============================ -->
+    <section class="view active" id="view-campaign" data-view-panel="campaign">
+      <section class="hero">
+        <div class="hero-bg" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="live-dot"></span>Campanha histórica · 1940–1945</div>
+          <h1>A guerra que o mundo<br><em>não podia perder.</em></h1>
+          <p class="hero-lede">Assuma o papel dos Aliados nas frentes <strong>Ocidental</strong> e <strong>Oriental</strong>. Cada missão é uma batalha real, apresentada na ordem em que aconteceu — e cada vitória desbloqueia uma nova página da história.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="continue-btn"><svg class="icon"><use href="#i-play"/></svg><span id="continue-label">Começar campanha</span></button>
+            <button class="btn btn-ghost" data-action="howto"><svg class="icon"><use href="#i-book"/></svg>Como jogar</button>
+          </div>
+          <div class="hero-facts">
+            <span><b>10</b> batalhas históricas</span>
+            <span><b>2</b> frentes de combate</span>
+            <span><b>6</b> anos de guerra</span>
+          </div>
+        </div>
+
+        <aside class="next-dossier" id="next-dossier" aria-live="polite">
+          <!-- preenchido pelo JS -->
+        </aside>
+      </section>
+
+      <div class="front-strip" aria-label="Resumo das frentes">
+        <article class="front-summary front-summary--west">
+          <span class="front-summary-icon"><svg class="icon"><use href="#i-globe"/></svg></span>
+          <div><strong>Frente Ocidental</strong><small>Noruega, França, Norte da África, Bélgica e Alemanha</small></div>
+          <span class="front-count" id="west-count">0 batalhas</span>
+        </article>
+        <article class="front-summary front-summary--east">
+          <span class="front-summary-icon"><svg class="icon"><use href="#i-star"/></svg></span>
+          <div><strong>Frente Oriental</strong><small>Moscou, Stalingrado, Kursk, Bielorrússia e Berlim</small></div>
+          <span class="front-count" id="east-count">0 batalhas</span>
+        </article>
+        <article class="front-summary front-summary--learn">
+          <span class="front-summary-icon"><svg class="icon"><use href="#i-book"/></svg></span>
+          <div><strong>Aprenda jogando</strong><small>Briefings com contexto, números e curiosidades históricas</small></div>
+          <button class="text-btn" data-action="howto">Entenda o formato <svg class="icon"><use href="#i-arrow"/></svg></button>
+        </article>
+      </div>
+
+      <section class="timeline-section" id="timeline-section">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Arquivo de guerra</span>
+            <h2>Linha do tempo da campanha</h2>
+            <p>As batalhas aparecem na ordem cronológica real. Toque em uma missão para abrir o briefing histórico antes de lutar.</p>
+          </div>
+          <div class="filter-group" role="group" aria-label="Filtrar por frente">
+            <button class="filter-chip active" data-filter="all">Todas</button>
+            <button class="filter-chip" data-filter="west"><i class="front-dot front-dot--west"></i>Ocidental</button>
+            <button class="filter-chip" data-filter="east"><i class="front-dot front-dot--east"></i>Oriental</button>
+          </div>
+        </div>
+        <div class="timeline" id="timeline"></div>
+        <div class="timeline-note">
+          <svg class="icon"><use href="#i-info"/></svg>
+          <span>As datas e os números são aproximados e podem variar entre fontes. O foco é entender <strong>por que</strong> cada batalha importou, não decorar estatísticas.</span>
+        </div>
+      </section>
+    </section>
+
+    <!-- ============================ DIÁRIO ============================ -->
+    <section class="view" id="view-diary" data-view-panel="diary">
+      <div class="page-intro">
+        <div>
+          <span class="eyebrow">Caderno de campanha</span>
+          <h1>Diário de <em>Guerra</em></h1>
+          <p>Suas descobertas ficam registradas aqui. Complete uma batalha para desbloquear a ficha histórica completa e a curiosidade do dia.</p>
+        </div>
+        <div class="diary-progress">
+          <div class="progress-ring" id="diary-ring"><span id="diary-ring-label">0%</span></div>
+          <div><strong id="diary-count">0 de 10 fichas</strong><span>desbloqueadas</span></div>
+        </div>
+      </div>
+      <div class="diary-toolbar">
+        <div class="filter-group" role="group" aria-label="Filtrar fichas por frente">
+          <button class="filter-chip active" data-diary-filter="all">Todas</button>
+          <button class="filter-chip" data-diary-filter="west"><i class="front-dot front-dot--west"></i>Ocidental</button>
+          <button class="filter-chip" data-diary-filter="east"><i class="front-dot front-dot--east"></i>Oriental</button>
+        </div>
+        <span class="diary-hint" id="diary-hint">As fichas são desbloqueadas ao vencer cada batalha.</span>
+      </div>
+      <div class="diary-grid" id="diary-grid"></div>
+    </section>
+
+    <!-- ============================ COMO JOGAR ============================ -->
+    <section class="view" id="view-about" data-view-panel="about">
+      <div class="page-intro">
+        <div>
+          <span class="eyebrow">Manual de campo</span>
+          <h1>Como <em>jogar</em></h1>
+          <p>Um jogo de estratégia em tempo real nas trincheiras. Você compra tropas, distribui reforços entre as linhas e ordena ataques ou recuos para romper a defesa inimiga — ou resistir até o fim do assalto.</p>
+        </div>
+        <div class="about-medal"><svg class="icon"><use href="#i-medal"/></svg><div><strong>Campanha educativa</strong><span>Sem violência gráfica explícita</span></div></div>
+      </div>
+
+      <div class="about-grid">
+        <article class="card about-card about-card--wide">
+          <div class="card-heading"><div><span class="eyebrow">Controles</span><h2>Seu posto de comando</h2></div><span class="kbd-note">Teclado + mouse</span></div>
+          <div class="controls-grid">
+            <div class="control-row"><span class="kbd">Clique</span><div><strong>Ponto de reforço</strong><small>Toque em uma linha aliada para escolher onde as novas tropas entram</small></div></div>
+            <div class="control-row"><span class="kbd">Botões</span><div><strong>Avançar / Recuar</strong><small>Cada trincheira aliada mostra ▶ para avançar e ◀ para recuar. O botão BLOQ/PASSAR define se as tropas param ou atravessam uma linha amiga</small></div></div>
+            <div class="control-row"><span class="kbd">1 – 8</span><div><strong>Comprar tropas</strong><small>Fuzileiros, metralhadoras, snipers, antitanques e mais</small></div></div>
+            <div class="control-row"><span class="kbd">A / R / B</span><div><strong>Atalhos de ordem</strong><small>Avançam, recuam ou bloqueiam/liberam a passagem na linha selecionada</small></div></div>
+            <div class="control-row"><span class="kbd">Moedas</span><div><strong>Economia</strong><small>+100 moedas a cada 5 segundos e bônus por trincheira tomada</small></div></div>
+            <div class="control-row"><span class="kbd">Esc / P</span><div><strong>Pausar</strong><small>O tempo para, a história espera</small></div></div>
+            <div class="control-row"><span class="kbd">Toque</span><div><strong>No celular</strong><small>Use as setas na base das trincheiras e a loja na parte de baixo</small></div></div>
+            <div class="control-row"><span class="kbd">Objetivo</span><div><strong>Vitória ou derrota</strong><small>Se o inimigo tomar sua primeira linha, a missão falha</small></div></div>
+          </div>
+        </article>
+
+        <article class="card about-card">
+          <div class="card-heading"><div><span class="eyebrow">Estrutura</span><h2>Como funciona uma missão</h2></div></div>
+          <ol class="mission-steps">
+            <li><span>1</span><div><strong>Leia o briefing</strong><p>Contexto histórico, o que estava em jogo, seu papel e uma curiosidade no fim do pop-up.</p></div></li>
+            <li><span>2</span><div><strong>Monte suas linhas</strong><p>Compre tropas com as moedas da batalha, escolha a trincheira certa e distribua fuzileiros, metralhadoras, médicos e blindados.</p></div></li>
+            <li><span>3</span><div><strong>Dê as ordens</strong><p>Use as setas na base da trincheira: ▶ avança para a próxima linha e ◀ recua os sobreviventes. Use BLOQ/PASSAR para segurar uma linha amiga ou deixar as tropas atravessarem direto. Tome as trincheiras ou resista até o tempo acabar.</p></div></li>
+            <li><span>4</span><div><strong>Receba o relatório</strong><p>Veja suas estatísticas, o posto conquistado e desbloqueie a ficha no Diário de Guerra.</p></div></li>
+          </ol>
+        </article>
+
+        <article class="card about-card">
+          <div class="card-heading"><div><span class="eyebrow">Dificuldade</span><h2>Escolha seu ritmo</h2></div></div>
+          <div class="difficulty-list">
+            <button class="difficulty-option" data-difficulty="recruta"><span class="diff-badge">I</span><div><strong>Recruta</strong><small>Inimigos mais frágeis e mais moedas iniciais. Ideal para aprender a história.</small></div></button>
+            <button class="difficulty-option" data-difficulty="soldado"><span class="diff-badge">II</span><div><strong>Soldado</strong><small>Experiência equilibrada. O padrão da campanha.</small></div></button>
+            <button class="difficulty-option" data-difficulty="veterano"><span class="diff-badge">III</span><div><strong>Veterano</strong><small>Inimigos resistentes, reforços mais rápidos e menos moedas. Para quem já conhece o front.</small></div></button>
+          </div>
+          <p class="small-note" id="difficulty-note">Dificuldade atual: Soldado</p>
+        </article>
+
+        <article class="card about-card about-card--wide about-note">
+          <div class="about-note-icon"><svg class="icon"><use href="#i-book"/></svg></div>
+          <div>
+            <strong>Uma nota sobre o conteúdo histórico</strong>
+            <p>Este jogo é uma dramatização educativa. As batalhas, datas, comandantes e contextos seguem o registro histórico amplamente aceito, mas a jogabilidade simplifica o combate para tornar o aprendizado possível. Números de baixas e efetivos variam entre fontes. O objetivo é despertar curiosidade e respeito pela história — não substituir um livro de história.</p>
+            <p class="about-credits">Feito como projeto educativo. Progresso salvo localmente no seu navegador. <button class="inline-link" id="reset-progress">Apagar progresso</button></p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand"><svg class="icon"><use href="#i-star"/></svg><span><strong>FRENTE ALIADA</strong> · Jogo educativo sobre a Segunda Guerra Mundial</span></div>
+    <span>“Aqueles que não conseguem lembrar o passado estão condenados a repeti-lo.” — George Santayana</span>
+  </footer>
+
+  <!-- ============================ JOGO ============================ -->
+  <section class="game-screen" id="game-screen" hidden aria-label="Campo de batalha">
+    <canvas id="game-canvas"></canvas>
+    <div class="game-vignette" aria-hidden="true"></div>
+    <div class="game-flash" id="game-flash" aria-hidden="true"></div>
+
+    <div class="game-top">
+      <div class="game-mission-id">
+        <span class="game-front-tag" id="game-front-tag">Frente Ocidental</span>
+        <strong id="game-battle-name">Batalha de Narvik</strong>
+        <small id="game-battle-date">9 abr – 8 jun 1940</small>
+      </div>
+
+      <div class="objective-panel">
+        <div class="objective-line">
+          <span id="objective-label">Avançar</span>
+          <b id="objective-value">0/7</b>
+        </div>
+        <div class="objective-track"><i id="objective-fill"></i></div>
+      </div>
+
+      <div class="game-top-actions">
+        <div class="coin-panel" title="Moedas para comprar tropas">
+          <svg class="icon"><use href="#i-coin"/></svg>
+          <b id="coin-value">0</b>
+        </div>
+        <button class="game-icon-btn" id="game-pause" aria-label="Pausar jogo"><svg class="icon"><use href="#i-pause"/></svg></button>
+      </div>
+    </div>
+
+    <div class="battle-dock" id="battle-dock">
+      <div class="dock-row">
+        <div class="deploy-dock" id="deploy-dock" title="Linha onde as novas tropas entram. Clique em outra trincheira aliada para mudar.">
+          <span id="deploy-label">Reforços</span>
+          <strong id="deploy-line">Linha 2</strong>
+        </div>
+        <div class="unit-shop" id="unit-shop" role="group" aria-label="Loja de unidades"></div>
+      </div>
+    </div>
+
+    <div class="game-toast" id="game-toast" hidden></div>
+    <div class="wave-banner" id="wave-banner" hidden></div>
+
+    <div class="game-overlay" id="game-overlay">
+      <div class="overlay-inner" id="overlay-inner"></div>
+    </div>
+  </section>
+
+  <div class="modal-root" id="modal-root"></div>
+  <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+  <script src="battles.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
